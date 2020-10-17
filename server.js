@@ -69,6 +69,8 @@ app.get('/api/animals/:id', (req, res) => {
         }    
 })
 
+// add POST route here at 11.2.3
+
 // chain `listen()` method to `app` variable to tell the server to listen for requests
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
