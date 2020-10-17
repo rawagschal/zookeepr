@@ -40,6 +40,11 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
 
 // add a route (test this before filterByQuery, but place it after in your code)
 app.get('/api/animals', (req, res) => {
@@ -48,8 +53,21 @@ app.get('/api/animals', (req, res) => {
     if (req.query) {
         results = filterByQuery(req.query, results);
     }
+    //respond with the results in json format
     res.json(results);
 });
+
+// get an animal by it's ID parameter 
+app.get('/api/animals/:id', (req, res) => {
+    // use findById(req.params.id) because each animal's id is unique
+    // and there won't be any queries on a single animal
+    const result = findById(req.params.id, animals);
+        if (result) {
+            res.json(result);
+        } else {
+            res.send(404);
+        }    
+})
 
 // chain `listen()` method to `app` variable to tell the server to listen for requests
 app.listen(PORT, () => {
